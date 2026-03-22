@@ -1,0 +1,224 @@
+/* --- 1. Font Setup --- */
+@font-face {
+    font-family: 'Suisse BP Int\'l';
+    src: url("fonts/SuisseBPIntl-Regular.otf") format('opentype');
+    font-weight: 400;
+}
+
+/* --- 2. Global Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fdfdfd;
+    color: #1a1a1a;
+    font-family: 'Suisse BP Int\'l', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.3px;
+    line-height: 1;
+    overflow: hidden; 
+}
+
+/* --- 3. Navigation (100px固定) --- */
+.navbar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
+    z-index: 3000;
+    background: rgba(253, 253, 253, 0.8);
+}
+
+.logo {
+    font-size: 23px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 400;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 23px;
+}
+
+/* --- 4. Sub-Navigation & Info Text Start Position --- */
+/* ボタンとInfoのテキスト開始位置を共通化 */
+.sub-nav-trigger,
+.info-content {
+    position: fixed;
+    top: 100px; /* Navbarの高さの直下 */
+    left: 60px;
+    z-index: 2000;
+    line-height: 1; /* 1.6 から 1.4 に下げると、より詰まった印象になります */
+    letter-spacing: -0.3px; /* ここも共通のタイト設定を維持 */
+}
+
+.sub-nav-trigger {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.0em;
+    cursor: pointer;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    min-width: 60px;
+}
+
+.info-content {
+    max-width: 800px; /* 読みやすい幅に制限 */
+    font-size: 23px;
+    font-weight: 300;
+    line-height: 1;
+    overflow-y: auto;
+    height: calc(100vh - 120px); /* 画面からはみ出さないよう調整 */
+    padding-right: 40px;
+}
+
+/* --- 5. Main Hero --- */
+.hero-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 60px 60px;
+}
+
+.hero-container img {
+    max-height: 75vh;
+    max-width: 85vw;
+    object-fit: contain;
+    cursor: w-resize;
+}
+
+/* キャプションのスタイル */
+.caption-sub {
+    margin-top: 10px;            /* 画像との間隔（適宜調整） */
+    text-align: center;         /* センター揃え */
+    color: #a0a0a0;             /* グレー色 */
+    font-size: 13px;            /* 12pt相当 (1pt ≒ 1.33px) */
+    font-weight: 500;           /* 標準の太さ */
+    letter-spacing: 0px;     /* 少しだけタイトに（お好みで） */
+    width: 100%;                /* 幅いっぱいに広げてセンターを維持 */
+}
+
+/* モバイル対応：画面が小さい時は文字を少し小さくしてバランスを取る */
+@media (max-width: 768px) {
+    .caption-sub {
+        font-size: 8px;        /* スマホでは約10.5ptに落とす */
+        margin-top: 8px;
+    }
+}
+
+/* --- 6. Pop-up Overlays --- */
+.overlay-full {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(253, 253, 253, 0.98);
+    z-index: 4000;
+    padding: 180px 60px;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: fixed;
+    top: 100px; right: 60px;
+    font-size: 12px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    cursor: pointer;
+    letter-spacing: 0em;
+    z-index: 4100;
+}
+
+.list-container {
+    list-style: none;
+    max-width: 800px;
+}
+
+.list-container li {
+    padding: 10px 0;
+    border-bottom: 0.5px solid #eee;
+}
+
+.list-container a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 23px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.grid-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* --- 7. Mobile Optimization --- */
+@media (max-width: 768px) {
+    body { letter-spacing: -0.3px; }
+    
+    .navbar { height: 80px; padding: 0 20px; }
+    
+    .sub-nav-trigger,
+    .info-content { 
+        top: 80px; 
+        left: 20px; 
+    }
+    
+    .sub-nav-trigger { font-size: 10px; }
+    
+    .list-container {
+        max-width: 100%; /* 横幅いっぱい使う */
+    }
+
+    .list-container li {
+        padding: 10px 0; /* タップしやすいように少し上下を広げる */
+    }
+
+    .list-container a {
+        /* スマホの画面サイズに合わせて23pxから16px程度に縮小 */
+        font-size: 15px; 
+        line-height: 1;
+        display: block; /* リンクの反応範囲を広げる */
+        letter-spacing: -0.3px; /* スマホではタイトすぎると読みにくいので微調整 */
+    }
+
+    .info-content { 
+        font-size: 15px; 
+        max-width: calc(100% - 40px);
+        padding-top: 20px; /* ボタンと被らないよう少し余白を */
+    }
+
+    .logo { font-size: 15px; }
+    .nav-links a { font-size: 15px; }
+    .nav-links { gap: 15px; }
+    
+    .hero-container { padding: 100px 20px 20px; }
+    .hero-container img { max-height: 60vh; }
+    
+    .overlay-full { padding: 140px 20px; }
+    .close-btn { top: 30px; right: 20px; }
+    
+    .grid-container { grid-template-columns: 1fr; }
+}

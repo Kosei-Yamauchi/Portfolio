@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal | Kosei Yamauchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
+        <ul class="nav-links">
+            <li><a href="commissioned.html">Commissioned</a></li>
+            <li><a href="personal.html" style="opacity:0.4;">Personal</a></li>
+            <li><a href="info.html">Info</a></li>
+        </ul>
+    </nav>
+
+    <div class="sub-nav-trigger" onclick="openOverlay('overall-overlay')">Overall</div>
+
+    <main class="hero-container">
+        <img src="images/Personal_SriLanka-3397.jpg" id="carousel-img" onclick="nextImage()">
+        <p id="carousel-caption" class="caption-sub"></p>
+    </main>
+
+    <div id="overall-overlay" class="overlay-full">
+        <div class="close-btn" onclick="closeOverlay('overall-overlay')">Close</div>
+        <div class="grid-container">
+            <img src="images/Personal_SriLanka-3397.jpg">
+            <img src="images/Personal_SriLanka-2876.jpg">
+            <img src="images/Germany-4653.jpg">
+            <img src="images/Germany-4667.jpg">
+            <img src="images/Germany-4686.jpg">
+            <img src="images/Germany-4699.jpg">
+            <img src="images/UK-4389.jpg">
+            <img src="images/UK-4409.jpg">
+            <img src="images/UK-4416.jpg">
+            <img src="images/UK-4419.jpg">
+            <img src="images/UK-4465.jpg">
+        
+            </div>
+    </div>
+
+    <script>
+    // 全ての画像を { id, src, cap } の形式で統一します
+    const images = [
+        { id: "srilanka-1", src: "images/Personal_SriLanka-3397.jpg", cap: "Sri Lanka" },
+        { id: "srilanka-2", src: "images/Personal_SriLanka-2876.jpg", cap: "Sri Lanka" },
+        { id: "germany-1", src: "images/Germany-4653.jpg", cap: "Germany" },
+        { id: "germany-2", src: "images/Germany-4667.jpg", cap: "Germany" },
+        { id: "germany-3", src: "images/Germany-4686.jpg", cap: "Germany" },
+        { id: "germany-4", src: "images/Germany-4699.jpg", cap: "Germany" },
+        { id: "uk-1", src: "images/UK-4389.jpg", cap: "UK" },
+        { id: "uk-2", src: "images/UK-4409.jpg", cap: "UK" },
+        { id: "uk-3", src: "images/UK-4416.jpg", cap: "UK" },
+        { id: "uk-4", src: "images/UK-4419.jpg", cap: "UK" },
+        { id: "uk-5", src: "images/UK-4465.jpg", cap: "UK" }
+    ];
+
+    let currentIndex = 0;
+
+    // ページ読み込み時にURLの #ハッシュ をチェック
+    window.onload = () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash) {
+            const foundIndex = images.findIndex(img => img.id === hash);
+            if (foundIndex !== -1) {
+                currentIndex = foundIndex;
+            }
+        }
+        updateDisplay();
+    };
+
+    // 次の画像へ（クリックイベント用）
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateDisplay();
+    }
+
+    // 表示を更新する共通関数
+    function updateDisplay() {
+    const imgElement = document.getElementById('carousel-img');
+    const capElement = document.getElementById('carousel-caption');
+    
+    if (imgElement && images[currentIndex]) {
+        // 画像を更新
+        imgElement.src = images[currentIndex].src;
+        
+        // キャプションを更新（データがある場合のみ表示）
+        if (capElement) {
+            capElement.innerText = images[currentIndex].cap || ""; 
+            }
+        }
+    }
+
+    // ポップアップ（OVERALL）の開閉用
+    function openOverlay(id) { document.getElementById(id).style.display = 'block'; }
+    function closeOverlay(id) { document.getElementById(id).style.display = 'none'; }
+    </script>
+</body>
+</html>

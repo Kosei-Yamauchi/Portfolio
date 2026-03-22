@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commissioned | Kosei Yamauchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
+        <ul class="nav-links">
+            <li><a href="commissioned.html" style="opacity:0.4;">Commissioned</a></li>
+            <li><a href="personal.html">Personal</a></li>
+            <li><a href="info.html">Info</a></li>
+        </ul>
+    </nav>
+
+    <div class="sub-nav-trigger" onclick="openOverlay('overall-overlay')">Overall</div>
+
+    <main class="hero-container">
+        <img src="images/Echoes_Eye.jpg" id="carousel-img" onclick="nextImage()">
+        <p id="carousel-caption" class="caption-sub"></p>
+    </main>
+
+    <div id="overall-overlay" class="overlay-full">
+        <div class="close-btn" onclick="closeOverlay('overall-overlay')">Close</div>
+        <div class="grid-container">
+            <img src="images/Echoes_Eye.jpg">
+            <img src="images/Echoes_Ear-2.jpg">
+            <img src="images/Popeye_JapaneseBreakfast-0431.jpg">
+            <img src="images/Popeye_JapaneseBreakfast-0468.jpg">
+            <img src="images/Popeye_JapaneseBreakfast-0327.jpg">
+            </div>
+    </div>
+
+   <script>
+    // 全ての画像を { id, src, cap } のセットで記述します
+    const images = [
+        { id: "Echoes-1", src: "images/Echoes_Eye.jpg", cap: "Echoes" },
+        { id: "Echoes-2", src: "images/Echoes_Ear-2.jpg", cap: "Echoes" },
+        { id: "Popeye-1", src: "images/Popeye_JapaneseBreakfast-0327.jpg", cap: "Popeye" },
+        { id: "Popeye-2", src: "images/Popeye_JapaneseBreakfast-0431.jpg", cap: "Popeye" },
+        { id: "Popeye-3", src: "images/Popeye_JapaneseBreakfast-0468.jpg", cap: "Popeye" }
+    ];
+
+    let currentIndex = 0;
+
+    // ページ読み込み時にURLの #ハッシュ をチェックする
+    window.onload = () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash) {
+            const foundIndex = images.findIndex(img => img.id === hash);
+            if (foundIndex !== -1) {
+                currentIndex = foundIndex;
+            }
+        }
+        updateDisplay(); // 初期表示を更新
+    };
+
+    // 次の画像へ
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateDisplay();
+    }
+
+    // 表示を更新する共通関数
+    function updateDisplay() {
+    const imgElement = document.getElementById('carousel-img');
+    const capElement = document.getElementById('carousel-caption');
+    
+    if (imgElement && images[currentIndex]) {
+        // 画像を更新
+        imgElement.src = images[currentIndex].src;
+        
+        // キャプションを更新（データがある場合のみ表示）
+        if (capElement) {
+            capElement.innerText = images[currentIndex].cap || ""; 
+            }
+        }
+    }
+
+    // Overlayの開閉
+    function openOverlay(id) { document.getElementById(id).style.display = 'block'; }
+    function closeOverlay(id) { document.getElementById(id).style.display = 'none'; }
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kosei Yamauchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
+        <ul class="nav-links">
+            <li><a href="commissioned.html">Commissioned</a></li>
+            <li><a href="personal.html">Personal</a></li>
+            <li><a href="info.html">Info</a></li>
+        </ul>
+    </nav>
+
+    <div class="sub-nav-trigger" onclick="openOverlay('index-overlay')">Index</div>
+
+    <main class="hero-container">
+        <img src="images/Personal_SriLanka-3397.jpg" id="carousel-img" onclick="nextImage()">
+    </main>
+
+    <div id="index-overlay" class="overlay-full">
+        <div class="close-btn" onclick="closeOverlay('index-overlay')">Close</div>
+        <ul class="list-container">
+            <li><a href="commissioned.html#Echoes-1">Tentative Echoes</a></li>
+            <li><a href="commissioned.html#Popeye-1">Popeye Web: Japanese Breakfast</a></li>
+    
+            <li><a href="personal.html#srilanka-1">Sri Lanka</a></li>
+            <li><a href="personal.html#germany-1">Germany</a></li>
+            <li><a href="personal.html#uk-1">UK</a></li>
+        </ul>
+    </div>
+
+    <script>
+    const images = [
+        { id: "srilanka-1", src: "images/Personal_SriLanka-3397.jpg", cap: "Sri Lanka" },
+        { id: "srilanka-2", src: "images/Personal_SriLanka-2876.jpg", cap: "Sri Lanka" },
+        { id: "germany-1", src: "images/Germany-4653.jpg", cap: "Germany" },
+        { id: "germany-2", src: "images/Germany-4667.jpg", cap: "Germany" },
+        { id: "germany-3", src: "images/Germany-4686.jpg", cap: "Germany" },
+        { id: "germany-4", src: "images/Germany-4699.jpg", cap: "Germany" },
+        { id: "uk-1", src: "images/UK-4389.jpg", cap: "UK" },
+        { id: "uk-2", src: "images/UK-4409.jpg", cap: "UK" },
+        { id: "uk-3", src: "images/UK-4416.jpg", cap: "UK" },
+        { id: "uk-4", src: "images/UK-4419.jpg", cap: "UK" },
+        { id: "uk-5", src: "images/UK-4465.jpg", cap: "UK" }
+    ];
+
+    let currentIndex = 0;
+
+    // --- 表示を更新する共通関数 ---
+    function updateDisplay() {
+        const imgElement = document.getElementById('carousel-img');
+        const capElement = document.getElementById('carousel-caption');
+        
+        if (imgElement && images[currentIndex]) {
+            imgElement.src = images[currentIndex].src;
+            if (capElement) {
+                capElement.innerText = images[currentIndex].cap || "";
+            }
+        }
+    }
+
+    // --- URLの#ハッシュを読み取って画像を切り替える関数 ---
+    function checkHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (hash) {
+            const foundIndex = images.findIndex(img => img.id === hash);
+            if (foundIndex !== -1) {
+                currentIndex = foundIndex;
+                updateDisplay();
+                // Indexが開いていたら閉じる
+                closeOverlay('index-overlay'); 
+                closeOverlay('overall-overlay');
+            }
+        }
+    }
+
+    // 1. ページ読み込み時に実行
+    window.onload = () => {
+        checkHash();
+        updateDisplay(); // ハッシュがない場合の初期表示
+    };
+
+    // 2. ページを開いたままURLの#が変わった時に実行（重要！）
+    window.onhashchange = checkHash;
+
+    // 次の画像へ
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateDisplay();
+    }
+
+    // オーバーレイ操作
+    function openOverlay(id) { 
+        const el = document.getElementById(id);
+        if(el) el.style.display = 'block'; 
+    }
+    function closeOverlay(id) { 
+        const el = document.getElementById(id);
+        if(el) el.style.display = 'none'; 
+    }
+    </script>
+</body>
+</html>
